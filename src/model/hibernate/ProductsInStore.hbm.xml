@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 7, 2015 12:57:09 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.hibernate.ProductsInStore" table="products_in_store" catalog="lior">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="products" class="model.hibernate.Products" fetch="select">
+            <column name="product_id" />
+        </many-to-one>
+        <many-to-one name="stores" class="model.hibernate.Stores" fetch="select">
+            <column name="store_id" />
+        </many-to-one>
+        <property name="quantity" type="string">
+            <column name="quantity" length="45" />
+        </property>
+        <property name="productCode" type="string">
+            <column name="product_code" length="90" />
+        </property>
+        <set name="productsInStorePriceses" table="products_in_store_prices" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="product_in_store_id" not-null="true" />
+            </key>
+            <one-to-many class="model.hibernate.ProductsInStorePrices" />
+        </set>
+    </class>
+</hibernate-mapping>
